@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext } from 'react';
 import firebase from '../services/firebaseConnection';
+import { toast } from 'react-toastify';
 
 export const AuthContext = createContext({});
 
@@ -39,9 +40,11 @@ function AuthProvider({ children }) {
         setUser(data);
         storageUser(data);
         setLoadinAuth(false);
+        toast.success('Login Successfully!')
       })
       .catch((error) => {
         console.log('error Signin in firebase: ', error);
+        toast.error('Ops, something when wrong! Please check your data...')
         setLoadinAuth(false);
     })
   }
@@ -52,7 +55,6 @@ function AuthProvider({ children }) {
     await firebase.auth().createUserWithEmailAndPassword(email, password)
       .then( async (value) => {
         let uid = value.user.uid;
-        alert(uid)
 
         await firebase.firestore().collection('users')
           .doc(uid).set({
@@ -69,10 +71,12 @@ function AuthProvider({ children }) {
             setUser(data);
             storageUser(data);
             setLoadinAuth(false);
+            toast.success('Welcome Support System!')
         })
       })
       .catch((error) => {
         console.log(error);
+        toast.error('Ops, something when wrong in your Sign Up!')
         setLoadinAuth(false);
       })
   }
