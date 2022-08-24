@@ -1,10 +1,10 @@
 import firebase from "firebase/app";
 import 'firebase/auth';
-import { REACT_APP_API_KEY, REACT_APP_AUTH_DOMAIN } from "../../.env";
+import 'firebase/firestore';
 
 let firebaseConfig = {
-  apiKey: REACT_APP_API_KEY,
-  authDomain: REACT_APP_AUTH_DOMAIN,
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
   projectId: "support-system-c2aab",
   storageBucket: "support-system-c2aab.appspot.com",
   messagingSenderId: "707914613240",
@@ -17,5 +17,3 @@ if (!firebase.apps.length) {
 }
 
 export default firebase;
-
-require('dotenv').config()
